@@ -1,0 +1,49 @@
+.player-main-field{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    background-color: brown;
+    border-radius: 10px;
+}
+
+ .player-open-cards{
+    margin-bottom: 20px;
+}
+
+.player-hand-cards, .player-open-cards{
+    display: flex;
+    flex-direction: row;
+}
+
+.card-div{
+    height: 160px;
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.yellow{
+    background-color: yellow;
+    color: black;
+}
+
+.red{
+    background-color: red;
+    color: white;
+}
+
+.blue{
+    background-color: blue;
+    color: white;
+}
+
+.white{
+    background-color: white;
+    color: black;
+}
+
+.black{
+    background-color: black;
+    color: white;
+}

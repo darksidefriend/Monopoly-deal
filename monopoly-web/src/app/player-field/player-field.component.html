@@ -1,0 +1,42 @@
+<div class="player-main-field">
+    <span *ngIf="isActivePlayer">Активный игрок</span>
+    <span *ngIf="!isActivePlayer">Неактивный игрок</span>
+    <span>{{playerMoney}}</span>
+    <p>player-field works!</p>
+    <div class="player-open-cards">
+        <ng-container *ngFor="let cardOpen of playerOpenCards">
+            <div class="card-div" id="{{playerName}}-{{cardOpen.id}}-card">
+                <div [ngClass]="cardOpen.color" class="card-name-div">
+                    <span>{{cardOpen.name}}</span>
+                </div>
+                {{cardOpen}}
+            </div>
+        </ng-container>
+    </div>
+    <div *ngIf="isActivePlayer" class="player-hand-cards">
+        <ng-container *ngFor="let cardOnHand of playerHand">
+            <div class="card-div" (click)="selectCard(cardOnHand)" id="{{playerName}}-{{cardOnHand.id}}-card">
+                <div [ngClass]="cardOnHand.color" class="card-name-div">
+                    <span>{{cardOnHand.name}}</span>
+                </div>
+                {{cardOnHand}}
+            </div>
+        </ng-container>
+    </div>
+
+    <ng-container *ngIf="cardSelectorMode">
+        <span>Выберите карту для совершения действия:</span>
+        <select name="" id="">
+            <ng-container *ngFor="let personCard of cardsToSelect">
+                <optgroup [label]="personCard.playerName">
+                    <ng-container *ngFor="let card of personCard.playerCards">
+                        <option value="" (click)="checkDeal()">{{card.name}}</option>
+                    </ng-container>
+                </optgroup>
+            </ng-container>
+        </select>
+    </ng-container>
+
+    <button *ngIf="isActivePlayer" (click)="endTurn()">Закончить ход</button>
+</div>
+

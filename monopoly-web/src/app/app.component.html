@@ -1,0 +1,36 @@
+<div id="main-div">
+  <div id="player-add-div" *ngIf="!gameIsActive">
+    <div id="player-add-header-div">Тут будет логотип</div>
+
+    <div id="player-add-list-div">
+      <div id="player-add-list-header-div">
+        <span>Игроки:</span>
+      </div>
+      <div class="little-divider-div"></div>
+      <div class="player-name-div" id="player-name-div-1">
+        <input class="player-name-input" type="text" placeholder="Введите имя..." (input)="checkGameStartOption()">
+      </div>
+      <div class="player-name-div" id="player-name-div-1">
+        <input class="player-name-input" type="text" placeholder="Введите имя..." (input)="checkGameStartOption()">
+      </div>
+      <div class="player-name-div" id="player-name-div-1">
+        <input class="player-name-input" type="text" placeholder="Введите имя..." (input)="checkGameStartOption()">
+      </div>
+      <div class="player-name-div" id="player-name-div-1">
+        <input class="player-name-input" type="text" placeholder="Введите имя..." (input)="checkGameStartOption()">
+      </div>
+      <div id="start-game-button-div">
+        <button [disabled]="!gameIsReady" id="start-game-button-div" (click)="gameStart()"><span>Начать игру!</span></button>
+      </div>
+    </div>
+  </div>
+
+  <ng-container style="display: flex;" *ngIf="gameIsActive">
+    <ng-container *ngFor="let player of playerList">
+      <player-field #{{player}} id="{{player}}-player-field" (playedCard)="performAction($event)" [cardsToSelect]="activePlayer === player ? availableCardsToSelect : []" [playerName]="player" [recievedCards]="activePlayer === player ? cardsToSend : []"  [isActivePlayer]="activePlayer === player ? true : false" (passTurn)="changePlayer()"> </player-field>
+    </ng-container>
+  </ng-container>
+</div>
+
+
+<router-outlet></router-outlet>
