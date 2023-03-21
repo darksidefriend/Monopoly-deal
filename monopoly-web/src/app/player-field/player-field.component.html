@@ -26,16 +26,31 @@
 
     <ng-container *ngIf="cardSelectorMode">
         <span>Выберите карту для совершения действия:</span>
-        <select name="" id="">
+        <select name="" id="" [(ngModel)]="selected" (change)="checkDeal()" >
+            <option  disabled selected [ngValue]="emptyCard"> Выбери карту </option>
             <ng-container *ngFor="let personCard of cardsToSelect">
                 <optgroup [label]="personCard.playerName">
                     <ng-container *ngFor="let card of personCard.playerCards">
-                        <option value="" (click)="checkDeal()">{{card.name}}</option>
+                        <option [ngValue]="createTempObject(card, personCard.playerName)" >{{card.name}}</option>
                     </ng-container>
                 </optgroup>
             </ng-container>
         </select>
     </ng-container>
+
+    <ng-container *ngIf="opponentSelectorIsActive">
+        <span>Выберите противника:</span>
+        <select name="" id="" [(ngModel)]="selectedOpp" (change)="checkDealWithOpponent()">
+            <option  disabled selected value> Выбери карту </option>
+            <ng-container *ngFor="let opponent of opponentsList">
+                <option [ngValue]="opponent">
+                    {{opponent}}
+                </option>
+            </ng-container>
+        </select>
+    </ng-container>
+
+
 
     <button *ngIf="isActivePlayer" (click)="endTurn()">Закончить ход</button>
 </div>
