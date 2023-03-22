@@ -18,9 +18,9 @@ export class AppComponent implements OnInit{
 
   @ViewChildren(PlayerFieldComponent)allPlayerComponents! : QueryList<PlayerFieldComponent> ;
   
-  gameIsReady : boolean = true;
-  gameIsActive : boolean = true;
-  playerList : string[] = ['dick', 'suck', 'pussy'];
+  gameIsReady : boolean = false;
+  gameIsActive : boolean = false;
+  playerList : string[] = [];
   activePlayerID = 0;
   activePlayer : string = this.playerList[this.activePlayerID];
   cardDeck = Deck.cardDeck;
@@ -28,9 +28,23 @@ export class AppComponent implements OnInit{
   availableCardsToSelect : Array<{playerName : string, playerCards : Card[]}> = [];
 
   ngOnInit(){
-    console.log('activePlayer', this.activePlayer, this.activePlayerID);
     
   }
+
+  finishGame(){
+    for (const player of this.allPlayerComponents.toArray()){
+      if (player.gameWinner){
+        alert(`Игрок ${player.playerName} победил!`);
+        this.playerList = [];
+        this.cardDeck = Deck.cardDeck;
+        this.gameIsActive = false;
+        this.gameIsReady = false;
+        this.activePlayerID = 0;
+        this.activePlayer = '';
+      }
+    }
+  }
+  
 
   checkGameStartOption(){
     let inputsArray : HTMLInputElement[] = Array.prototype.slice.call(document.getElementsByClassName('player-name-input'));
@@ -58,7 +72,15 @@ export class AppComponent implements OnInit{
         this.playerList.push(element.value);
       }
     }
-    this.gameIsActive = true;
+
+    setTimeout(() => {
+      console.log('activeplaterID', this.activePlayerID);
+      console.log('activeplayer', this.activePlayer);
+      this.gameIsActive = true;
+  
+      this.firstCardLoad();
+    }, 1000);
+
     
   }
 
@@ -104,7 +126,7 @@ export class AppComponent implements OnInit{
         break;
 
       case 'birthday':
-
+        this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].checkDeal();
         break;
 
       case 'unfair':
@@ -113,8 +135,13 @@ export class AppComponent implements OnInit{
           let redCount = 0;
           let yellowCount = 0;
           let blueCount = 0;
-          let blackCount = 0;
-          let whiteCount = 0;
+          let stationCount = 0;
+          let brownCount = 0;
+          let lightBlueCount = 0;
+          let pinkCount = 0;
+          let orangeCount = 0;
+          let greenCount = 0;
+          let communityCount = 0;
           let cards : Card[] = [];
           for (const card of player.playerOpenCards) {
             switch (card.color){
@@ -127,11 +154,26 @@ export class AppComponent implements OnInit{
               case 'blue':
                 blueCount++;
                 break;
-              case 'black':
-                blackCount++;
+              case 'station':
+                stationCount++;
                 break;
-              case 'white':
-                whiteCount++;
+              case 'brown':
+                brownCount++;
+                break;
+              case 'light-blue':
+                lightBlueCount++;
+                break;
+              case 'pink':
+                pinkCount++;
+                break;
+              case 'orange':
+                orangeCount++;
+                break;
+              case 'green':
+                greenCount++;
+                break;
+              case 'community':
+                communityCount++;
                 break;
             }
           }
@@ -146,18 +188,43 @@ export class AppComponent implements OnInit{
               cards.push(i);
             } 
           }
-          if (blueCount % 3 !== 0){
+          if (blueCount % 2 !== 0){
             for (const i of player.playerOpenCards.filter(elem => elem.color === 'blue')) {
               cards.push(i);
             } 
           }
-          if (blackCount % 3 !== 0){
-            for (const i of player.playerOpenCards.filter(elem => elem.color === 'black')) {
+          if (greenCount % 3 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'green')) {
               cards.push(i);
             } 
           }
-          if (whiteCount % 3 !== 0){
-            for (const i of player.playerOpenCards.filter(elem => elem.color === 'white')) {
+          if (orangeCount % 3 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'orange')) {
+              cards.push(i);
+            } 
+          }
+          if (pinkCount % 3 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'pink')) {
+              cards.push(i);
+            } 
+          }
+          if (lightBlueCount % 3 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'light-blue')) {
+              cards.push(i);
+            } 
+          }
+          if (brownCount % 2 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'brown')) {
+              cards.push(i);
+            } 
+          }
+          if (stationCount % 4 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'station')) {
+              cards.push(i);
+            } 
+          }
+          if (communityCount % 2 !== 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'community')) {
               cards.push(i);
             } 
           }
@@ -177,8 +244,13 @@ export class AppComponent implements OnInit{
           let redCount = 0;
           let yellowCount = 0;
           let blueCount = 0;
-          let blackCount = 0;
-          let whiteCount = 0;
+          let stationCount = 0;
+          let brownCount = 0;
+          let lightBlueCount = 0;
+          let pinkCount = 0;
+          let orangeCount = 0;
+          let greenCount = 0;
+          let communityCount = 0;
           let cards : Card[] = [];
           for (const card of player.playerOpenCards) {
             switch (card.color){
@@ -191,11 +263,26 @@ export class AppComponent implements OnInit{
               case 'blue':
                 blueCount++;
                 break;
-              case 'black':
-                blackCount++;
+              case 'station':
+                stationCount++;
                 break;
-              case 'white':
-                whiteCount++;
+              case 'brown':
+                brownCount++;
+                break;
+              case 'light-blue':
+                lightBlueCount++;
+                break;
+              case 'pink':
+                pinkCount++;
+                break;
+              case 'orange':
+                orangeCount++;
+                break;
+              case 'green':
+                greenCount++;
+                break;
+              case 'community':
+                communityCount++;
                 break;
             }
           }
@@ -210,18 +297,43 @@ export class AppComponent implements OnInit{
               cards.push(i);
             } 
           }
-          if (blueCount % 3 === 0){
+          if (blueCount % 2 === 0){
             for (const i of player.playerOpenCards.filter(elem => elem.color === 'blue')) {
               cards.push(i);
             } 
           }
-          if (blackCount % 3 === 0){
-            for (const i of player.playerOpenCards.filter(elem => elem.color === 'black')) {
+          if (greenCount % 3 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'green')) {
               cards.push(i);
             } 
           }
-          if (whiteCount % 3 === 0){
-            for (const i of player.playerOpenCards.filter(elem => elem.color === 'white')) {
+          if (orangeCount % 3 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'orange')) {
+              cards.push(i);
+            } 
+          }
+          if (pinkCount % 3 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'pink')) {
+              cards.push(i);
+            } 
+          }
+          if (lightBlueCount % 3 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'light-blue')) {
+              cards.push(i);
+            } 
+          }
+          if (brownCount % 2 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'brown')) {
+              cards.push(i);
+            } 
+          }
+          if (stationCount % 4 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'station')) {
+              cards.push(i);
+            } 
+          }
+          if (communityCount % 2 === 0){
+            for (const i of player.playerOpenCards.filter(elem => elem.color === 'community')) {
               cards.push(i);
             } 
           }
@@ -242,9 +354,10 @@ export class AppComponent implements OnInit{
         if (this.cardDeck.length === 0){
           return;
         }
-
+        this.cardDeck.push(cardSelected);
         this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(cardSelected),1);
-        this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+        this.triggerNextTurn();
+        // this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
         for (let i = 0; i < 2;) {
           let selectedCardIndex = Math.floor(Math.random() * (this.cardDeck.length + 1));
           console.log('selectedCardIndex',selectedCardIndex);
@@ -267,10 +380,24 @@ export class AppComponent implements OnInit{
   finalizeDeal(result : any){
     console.log(result);
     if (result.opponentName == ''){
-      let selectedOpponents = this.allPlayerComponents.toArray().filter(elem => elem.playerName !== this.activePlayer)[0];
+      let selectedOpponents = this.allPlayerComponents.toArray().filter(elem => elem.playerName !== this.activePlayer);
       console.log('select all opponents', selectedOpponents);
+      console.log('birthdayt');
+      
       switch (result.action.action){
         case 'birthday':
+          for (const player of selectedOpponents) {
+            if ((player.playerMoney - 5) < 0){
+              this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerMoney += player.playerMoney;
+              player.playerMoney = 0;
+            } else {
+              this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerMoney += 5;
+              player.playerMoney = player.playerMoney - 5; 
+            }
+          }
+          this.cardDeck.push(result.action);
+          this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(result.action),1);
+          this.triggerNextTurn();
           break;
       }
       
@@ -291,23 +418,33 @@ export class AppComponent implements OnInit{
               selectedOpponents.playerMoney = selectedOpponents.playerMoney - this.countRent(result.card.color, propertyCounter);
               this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerMoney += this.countRent(result.card.color, propertyCounter);
             }
+            this.cardDeck.push(result.action);
             this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(result.action),1);
-            this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+            this.triggerNextTurn();
+            // this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
             break;
 
           case 'steal':
             let temp = this.allPlayerComponents.toArray().filter(elem => (elem.playerName === result.opponentName))[0].playerOpenCards.filter(card => card.color === result.card.color);
-            for (let index = 0; index < 3; index++) {
+            for (let index = 0; index < 2; index++) {
               this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerOpenCards.push(temp[index]);
               temp.splice(0,1);
             }
-            this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+            this.cardDeck.push(result.action);
+            this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(result.action),1);
+            this.triggerNextTurn();
+            // this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+
+            
             break;
 
           case 'unfair':
             this.allPlayerComponents.toArray().filter(elem => (elem.playerName === result.opponentName))[0].playerOpenCards.splice(selectedOpponents.playerOpenCards.indexOf(result.card),1);
+            this.cardDeck.push(result.action);
+            this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(result.action),1);
             this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerOpenCards.push(result.card);
-            this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+            this.triggerNextTurn();
+            // this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
             break;
 
           case 'tax':
@@ -319,14 +456,18 @@ export class AppComponent implements OnInit{
               this.allPlayerComponents.toArray().filter(elem => (elem.playerName === result.opponentName))[0].playerMoney = this.allPlayerComponents.toArray().filter(elem => (elem.playerName === result.opponentName))[0].playerMoney - 5;
               this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerMoney += 5;
             }
+            this.cardDeck.push(result.action);
             this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(result.action),1);
-            this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+            this.triggerNextTurn();
+            // this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
             break;
       }
       } else {
         alert('Оппонент использовал карточку Просто скажи нет!');
+        this.cardDeck.push(result.action);
         this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].playerHand.indexOf(result.action),1);
-        this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+        this.triggerNextTurn();
+        // this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
       }
     }
   }
@@ -364,7 +505,7 @@ export class AppComponent implements OnInit{
           default: 
             return 8;
         }
-      case 'black':
+      case 'station':
         switch (count){
           case (1):
             return 2;
@@ -392,6 +533,7 @@ export class AppComponent implements OnInit{
   checkJustNoCard(opponentName : string){
 
     if (this.allPlayerComponents.toArray().filter(elem => elem.playerName == opponentName)[0].playerHand.filter(card => card.action === 'justno').length != 0){
+      this.cardDeck.push(this.allPlayerComponents.toArray().filter(elem => elem.playerName == opponentName)[0].playerHand.filter(card => card.action === 'justno')[0]);
       this.allPlayerComponents.toArray().filter(elem => elem.playerName == opponentName)[0].playerHand.splice(this.allPlayerComponents.toArray().filter(elem => elem.playerName == opponentName)[0].playerHand.indexOf(this.allPlayerComponents.toArray().filter(elem => elem.playerName == opponentName)[0].playerHand.filter(card => card.action === 'justno')[0]), 1);
       return true;
     } else {
@@ -416,6 +558,30 @@ export class AppComponent implements OnInit{
 
     }        
 
+  }
+
+  triggerNextTurn(){
+    if(this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed == 2){
+      this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].endTurn();
+    } else {
+      this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
+    }
+  }
+
+  firstCardLoad(){
+
+    for (const player of this.allPlayerComponents.toArray()) {
+      for (let i = 0; i < 2;) {
+        let selectedCardIndex = Math.floor(Math.random() * (this.cardDeck.length + 1));
+        console.log('selectedCardIndex',selectedCardIndex);
+        if (selectedCardIndex < this.cardDeck.length){
+          player.playerHand.push(this.cardDeck[selectedCardIndex]);
+          this.cardDeck.splice(selectedCardIndex, 1);
+          i++;
+        }
+  
+      }
+    }
   }
 
 

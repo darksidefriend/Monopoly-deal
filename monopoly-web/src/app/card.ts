@@ -3,7 +3,7 @@ export class Card{
     id! : number;
     price! : number;
     name! : string;
-    color? : string;
+    color! : string;
     action! : string;
     description? : string;
     

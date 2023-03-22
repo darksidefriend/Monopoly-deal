@@ -27,7 +27,15 @@
 
   <ng-container style="display: flex;" *ngIf="gameIsActive">
     <ng-container *ngFor="let player of playerList">
-      <player-field id="{{player}}-player-field" [opponentsList]="loadOpponentsList(player)" (playedCard)="performAction($event)" [cardsToSelect]="activePlayer === player ? availableCardsToSelect : []" [playerName]="player" [recievedCards]="activePlayer === player ? cardsToSend : []"  [isActivePlayer]="activePlayer === player ? true : false" (passTurn)="changePlayer()" (finalChackWithOpponents)="finalizeDeal($event)"> </player-field>
+      <player-field id="{{player}}-player-field" (playerWon)="finishGame()"
+        [opponentsList]="loadOpponentsList(player)" 
+        (playedCard)="performAction($event)"
+        [cardsToSelect]="activePlayer === player ? availableCardsToSelect : []" 
+        [playerName]="player" [recievedCards]="activePlayer === player ? cardsToSend : []" 
+        [isActivePlayer]="activePlayer === player ? true : false" 
+        (passTurn)="changePlayer()" 
+        (finalChackWithOpponents)="finalizeDeal($event)">
+      </player-field>
     </ng-container>
   </ng-container>
 </div>
