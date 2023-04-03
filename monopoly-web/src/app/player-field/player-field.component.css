@@ -1,15 +1,22 @@
+@font-face {
+    font-family: kabel;
+    src: url(../../assets/Kabel_Regular/Kabel_Regular.ttf) format("truetype");
+}
+
 .player-main-field{
     height: auto;
     display: flex;
     flex-direction: column;
     width: 500px;
     background-color: brown;
+    font-family: 'kabel';
     border-radius: 10px;
 }
 
  .player-open-cards{
     margin-bottom: 20px;
     display: grid;
+    
 }
 
 .player-hand-cards, .player-open-cards{

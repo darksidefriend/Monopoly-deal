@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   gameIsActive : boolean = false;
   playerList : string[] = [];
   activePlayerID = 0;
-  activePlayer : string = this.playerList[this.activePlayerID];
+  activePlayer : string = '';
   cardDeck = Deck.cardDeck;
   cardsToSend : Card[] = [];
   availableCardsToSelect : Array<{playerName : string, playerCards : Card[]}> = [];
@@ -73,13 +73,13 @@ export class AppComponent implements OnInit{
       }
     }
 
+    this.activePlayer = this.playerList[this.activePlayerID];
+    this.gameIsActive = true;
+
     setTimeout(() => {
-      console.log('activeplaterID', this.activePlayerID);
-      console.log('activeplayer', this.activePlayer);
-      this.gameIsActive = true;
-  
       this.firstCardLoad();
-    }, 1000);
+    }, 1)
+    
 
     
   }
@@ -570,18 +570,36 @@ export class AppComponent implements OnInit{
 
   firstCardLoad(){
 
+    console.log('first load comp', this.allPlayerComponents.toArray());
+    
+
     for (const player of this.allPlayerComponents.toArray()) {
-      for (let i = 0; i < 2;) {
-        let selectedCardIndex = Math.floor(Math.random() * (this.cardDeck.length + 1));
-        console.log('selectedCardIndex',selectedCardIndex);
-        if (selectedCardIndex < this.cardDeck.length){
-          player.playerHand.push(this.cardDeck[selectedCardIndex]);
-          this.cardDeck.splice(selectedCardIndex, 1);
-          i++;
+      if (this.allPlayerComponents.toArray()[0]){
+        for (let i = 0; i < 4;) {
+          let selectedCardIndex = Math.floor(Math.random() * (this.cardDeck.length + 1));
+          console.log('selectedCardIndex',selectedCardIndex);
+          if (selectedCardIndex < this.cardDeck.length){
+            player.playerHand.push(this.cardDeck[selectedCardIndex]);
+            this.cardDeck.splice(selectedCardIndex, 1);
+            i++;
+          }
+    
         }
-  
+      } else {
+        for (let i = 0; i < 2;) {
+          let selectedCardIndex = Math.floor(Math.random() * (this.cardDeck.length + 1));
+          console.log('selectedCardIndex',selectedCardIndex);
+          if (selectedCardIndex < this.cardDeck.length){
+            player.playerHand.push(this.cardDeck[selectedCardIndex]);
+            this.cardDeck.splice(selectedCardIndex, 1);
+            i++;
+          }
+        }
       }
+      
     }
+
+    console.log('after first load comp', this.allPlayerComponents.toArray());
   }
 
 

@@ -1,12 +1,13 @@
 #main-div{
-    display: flex;
+    display: grid;
     height: 100%;
     max-width: 100%;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center;
+    justify-content: center; */
 }
 
 #player-add-div{
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;

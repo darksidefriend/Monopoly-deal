@@ -25,6 +25,7 @@ export class PlayerFieldComponent implements OnInit, OnChanges, AfterViewInit, A
   local0ppList : string[] = [];
   
 
+  @Input() initialCards! : Card[]; 
   @Input() opponentsList! : string[];
   @Input() isActivePlayer! : boolean;
   @Input() playerName! : string;
