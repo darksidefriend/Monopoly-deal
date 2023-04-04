@@ -1,32 +1,43 @@
 <div class="player-main-field">
-    <span *ngIf="isActivePlayer">Активный игрок</span>
-    <span *ngIf="!isActivePlayer">Неактивный игрок</span>
-    <span>{{playerMoney}}</span>
-    <p>player-field works!</p>
+    <div class="player-info-div">
+        <div class="player-name-div"><span>{{playerName}}</span></div>
+        <div class="player-money-div"><span>{{playerMoney}} M</span></div>
+    </div>
+    <!-- <span *ngIf="isActivePlayer">Активный игрок</span>
+    <span *ngIf="!isActivePlayer">Неактивный игрок</span> -->
+    
+    <!-- <p>player-field works!</p> -->
     <div class="player-open-cards">
-        <ng-container *ngFor="let cardOpen of playerOpenCards">
-            <div class="card-div">
-                <div [ngClass]="cardOpen?.color" class="card-name-div">
-                    <span>{{cardOpen?.name}}</span>
+        <div class="cards-container">
+            <ng-container *ngFor="let cardOpen of playerOpenCards">
+                <div [title]="cardOpen?.description" class="card-div">
+                    <div [ngClass]="cardOpen?.color" class="card-name-div">
+                        <span>{{cardOpen?.name}}</span>
+                    </div>
+                    <!-- {{cardOpen}} -->
                 </div>
-                {{cardOpen}}
-            </div>
-        </ng-container>
+            </ng-container>
+        </div>
+        <div class="sign"><span>Карты на поле</span></div>
+        <div class="divider"></div>
     </div>
     <div *ngIf="isActivePlayer" class="player-hand-cards">
-        <ng-container *ngFor="let cardOnHand of playerHand">
-            <div class="card-div" (click)="selectCard(cardOnHand)">
-                <div [ngClass]="cardOnHand?.color" class="card-name-div">
-                    <span>{{cardOnHand?.name}}</span>
+        <div class="cards-container">
+            <ng-container *ngFor="let cardOnHand of playerHand">
+                <div [title]="cardOnHand?.description" class="card-div" (click)="selectCard(cardOnHand)">
+                    <div [ngClass]="cardOnHand?.color" class="card-name-div">
+                        <span>{{cardOnHand?.name}}</span>
+                    </div>
+                    <!-- {{cardOnHand}} -->
                 </div>
-                {{cardOnHand}}
-            </div>
-        </ng-container>
+            </ng-container>
+        </div>
+                
     </div>
 
     <ng-container *ngIf="cardSelectorMode">
-        <span>Выберите карту для совершения действия:</span>
-        <select name="" id="" [(ngModel)]="selected" (change)="checkDeal()" >
+        <span class="info-span">Выберите карту для совершения действия:</span>
+        <select class="selector" name="" id="" [(ngModel)]="selected" (change)="checkDeal()" >
             <option  disabled selected [ngValue]="emptyCard"> Выбери карту </option>
             <ng-container *ngFor="let personCard of cardsToSelect">
                 <optgroup [label]="personCard.playerName">
@@ -39,8 +50,8 @@
     </ng-container>
 
     <ng-container *ngIf="opponentSelectorIsActive">
-        <span>Выберите противника:</span>
-        <select name="" id="" [(ngModel)]="selectedOpp" (change)="checkDealWithOpponent()">
+        <span class="info-span">Выберите противника:</span>
+        <select class="selector" name="" id="" [(ngModel)]="selectedOpp" (change)="checkDealWithOpponent()">
             <option  disabled selected value> Выбери карту </option>
             <ng-container *ngFor="let opponent of local0ppList">
                 <option [ngValue]="opponent">
@@ -52,6 +63,6 @@
 
 
 
-    <button *ngIf="isActivePlayer" (click)="endTurn()">Закончить ход</button>
+    <button class="pass-turn-button" *ngIf="isActivePlayer" (click)="endTurn()">Закончить ход</button>
 </div>
 

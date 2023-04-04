@@ -47,10 +47,11 @@ export class PlayerFieldComponent implements OnInit, OnChanges, AfterViewInit, A
     }
     
     this.recievedCards = [];
+    this.isWinner();
 
-    if (this.isWinner()){
-      this.playerWon.emit();
-    }   
+    // if (isWinner()){
+    //   // this.playerWon.emit();
+    // }     
   }
 
   ngAfterViewInit(){
@@ -174,10 +175,10 @@ export class PlayerFieldComponent implements OnInit, OnChanges, AfterViewInit, A
     console.log('complete safsda', completeProperties);
     
 
-    if(completeProperties >= 3){
-      return true;
+    if(completeProperties == 3){
+      this.gameWinner = true;
     } else {
-      return false;
+      this.gameWinner = false;
     }
   }
 

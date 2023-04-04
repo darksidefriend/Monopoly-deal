@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import { Component, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
 import { Deck } from './deck';
 import { Card } from './card';
 import { PlayerFieldComponent } from './player-field/player-field.component';
@@ -28,12 +28,14 @@ export class AppComponent implements OnInit{
   availableCardsToSelect : Array<{playerName : string, playerCards : Card[]}> = [];
 
   ngOnInit(){
-    
+
   }
 
   finishGame(){
+    
     for (const player of this.allPlayerComponents.toArray()){
       if (player.gameWinner){
+        console.log('asfasfs');
         alert(`Игрок ${player.playerName} победил!`);
         this.playerList = [];
         this.cardDeck = Deck.cardDeck;
@@ -44,6 +46,7 @@ export class AppComponent implements OnInit{
       }
     }
   }
+
   
 
   checkGameStartOption(){
@@ -566,6 +569,7 @@ export class AppComponent implements OnInit{
     } else {
       this.allPlayerComponents.toArray().filter(elem => elem.playerName == this.activePlayer)[0].cardsPlayed++;
     }
+    this.finishGame();
   }
 
   firstCardLoad(){
@@ -575,6 +579,8 @@ export class AppComponent implements OnInit{
 
     for (const player of this.allPlayerComponents.toArray()) {
       if (this.allPlayerComponents.toArray()[0]){
+        // console.log('imhere');
+        
         for (let i = 0; i < 4;) {
           let selectedCardIndex = Math.floor(Math.random() * (this.cardDeck.length + 1));
           console.log('selectedCardIndex',selectedCardIndex);

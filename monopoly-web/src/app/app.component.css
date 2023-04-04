@@ -2,25 +2,77 @@
     display: grid;
     height: 100%;
     max-width: 100%;
-    /* align-items: center;
-    justify-content: center; */
+    grid-template-columns: 1fr 500px 1fr 500px 1fr;
+    grid-template-rows: 1fr 300px 1fr 300px 1fr;
+    gap: 10px;
+    background-color: #decece;
+}
+
+#start-game-button-div button{
+    height: 40px;
+    width: 100.5%;
+    outline: 0;
+    border: none;
+    background-color: #d62643;
+    color: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    
+}
+
+#start-game-button-div button:hover{
+    cursor: pointer;
+    filter: brightness(0.8);
+}
+
+#start-game-button-div button:disabled{
+    background-color: #d18b96;
+    color: #ffffff;
+}
+
+#start-game-button-div button:disabled:hover{
+    cursor: unset;
+    filter: none;
 }
 
 #player-add-div{
-    margin: auto;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 300px;
     height: 400px;
-    background-color: blue;
+    border: 3px solid #d62643;
+    background-color: #ffffff;
     border-radius: 10px;
 }
 
 #player-add-header-div{
     width: 100%;
-    height: 70px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
+}
+
+#logo-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 100%;
+}
+
+#logo-div img{
+    height: 100%;
+    width: 90%;
 }
 
 #player-add-list-div{
@@ -29,17 +81,42 @@
 
 #player-add-list-header-div{
     height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Ubuntu';
+    font-size: 24px;
+    font-weight: bold;
 }
+    
+
 
 .player-name-div{
     height: 40px;
+    margin-bottom: 10px;
 }
 
 .player-name-div input{
-    width: 160px;
-    height: 100%;
+    width: 98%;
+    height: 38px;
 }
 
 player-field{
-    margin: 10px;
+    margin-bottom: 10px;
+}
+
+player-field:nth-child(odd){
+    grid-column: 2/3;
+}
+
+player-field:nth-child(even){
+    grid-column: 4/5;
+}
+
+player-field:nth-child(1), player-field:nth-child(2){
+    grid-row: 2/3;
+}
+
+player-field:nth-child(3), player-field:nth-child(4){
+    grid-row: 4/5;
 }
